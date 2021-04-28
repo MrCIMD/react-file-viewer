@@ -1,5 +1,4 @@
 // Copyright (c) 2017 PlanGrid, Inc.
-
 import React from 'react';
 
 import 'styles/loading.scss';

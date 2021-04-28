@@ -9,7 +9,7 @@ const PORT = 8081;
 
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
-const config = require('../webpack.config.dev.js');
+const config = require('../../webpack.config.dev.ts');
 
 const compiler = webpack(config);
 
@@ -21,8 +21,9 @@ const devServer = new WebpackDevServer(compiler, {
   },
 });
 
-devServer.listen(PORT, (err, result) => {
+devServer.listen(PORT, (err) => {
   if (err) {
+
     return console.log(err);
   }
   console.log('Development server listening on port ', PORT);

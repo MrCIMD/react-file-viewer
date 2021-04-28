@@ -1,21 +1,20 @@
-// Copyright (c) 2017 PlanGrid, Inc.
-
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 
 const BUILD_DIR = path.resolve(__dirname, './dist');
-const APP_DIR = path.resolve(__dirname, './src');
+const APP_DIR = path.resolve(__dirname, './src/app');
 
 const config = {
+  mode: 'production',
   entry: `${APP_DIR}/components`,
   output: {
     path: BUILD_DIR,
-    filename: 'index.js',
+    filename: 'index.ts',
     library: ['FileViewer'],
     libraryTarget: 'umd',
   },
   resolve: {
-    modules: [path.resolve(__dirname, './src'), 'node_modules'],
+    modules: [path.resolve(__dirname, './src/app'), 'node_modules'],
     extensions: ['.js', '.jsx', '.json'],
   },
   externals: [
@@ -39,12 +38,9 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        include: path.resolve(__dirname, './src'),
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true,
-        },
+        test: /\.(ts|tsx)$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.(css|scss)$/,

@@ -5,15 +5,16 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+console.log( path.resolve(__dirname, './src/app.ts'))
 module.exports = {
+  mode: 'development',
   devtool: 'cheap-module-source-map',
 
   entry: {
     app: [
       'webpack-dev-server/client?http://localhost:8081/',
       'webpack/hot/dev-server',
-      path.resolve(__dirname, './src/app.js'),
+      path.resolve(__dirname, './src/app/app.ts'),
     ],
   },
   output: {
@@ -30,12 +31,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        include: path.resolve(__dirname, './src'),
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true,
-        },
+        test: /\.(ts|tsx)$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.(css|scss)$/,
@@ -65,16 +63,6 @@ module.exports = {
             loader: 'sass-loader',
           },
         ],
-      },
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint-loader',
-        include: path.resolve(__dirname, 'src'),
-        enforce: 'pre',
-      },
-      {
-        test: [/\.wexbim$/, /\.jpg$/, /\.docx$/, /\.csv$/, /\.mp4$/, /\.xlsx$/, /\.doc$/, /\.avi$/, /\.webm$/, /\.mov$/, /\.mp3$/, /\.rtf$/, /\.pdf$/],
-        loader: 'file-loader',
       },
       {
         test: /\.png$/,
